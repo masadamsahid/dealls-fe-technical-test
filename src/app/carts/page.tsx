@@ -6,7 +6,7 @@ const Page = () => {
   
   return (
     <MainLayout>
-      Products Page
+      Cart Page
     </MainLayout>
   );
 }
