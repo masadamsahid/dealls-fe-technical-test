@@ -10,7 +10,7 @@ const MainLayout: React.FC<React.PropsWithChildren> = (
 ) => {
   return (
     <main>
-      <div className="flex p-5 h-[100vh] gap-5">
+      <div className="flex p-5 h-[100vh] gap-5 bg-purple-500">
         <NavBar/>
         <MainContent>
           {children}

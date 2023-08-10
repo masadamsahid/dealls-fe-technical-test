@@ -22,16 +22,17 @@ const menus: MenuType[] = [
 
 const NavBar = () => {
   return (
-    <div className="flex flex-col gap-2 p-5 justify-center bg-purple-950 w-[300px] rounded-2xl">
+    <div className="flex flex-col gap-3 p-3 justify-start bg-slate-300/40 shadow-2xl w-[300px] rounded-2xl">
       {menus.map(({ name, url }) => (
         <Button
+          key={url}
           href={url}
           as={Link}
-          p={8}
-          colorScheme='yellow'
+          p={6}
+          justifyContent='start'
+          colorScheme='purple'
           variant='solid'
-          fontSize={24}
-          fontWeight="normal"
+          fontSize={16}
           w='100%'
         >
           {name}
