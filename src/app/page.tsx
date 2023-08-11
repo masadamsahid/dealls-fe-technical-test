@@ -1,8 +1,12 @@
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  
+  redirect('/products');
+  
   return (
     <main className="">
-      Test
+      You're being redirected. Please wait!
     </main>
   )
 }
