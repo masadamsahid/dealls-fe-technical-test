@@ -4,25 +4,10 @@ import MainLayout from "@/components/MainLayout";
 import { FormEvent, FormEventHandler, useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Button, Input,
+  Input,
   InputGroup, InputLeftAddon,
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr
 } from "@chakra-ui/react";
-
-interface DummyProducts {
-  data: any[];
-  total: number;
-  skip: number;
-  limit: number;
-}
+import ProductsTable, { DummyProducts } from "@/components/ProductsTable";
 
 const Page = () => {
   
@@ -31,7 +16,9 @@ const Page = () => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string | undefined>(undefined);
   
-  const maxPage = Math.ceil((products?.total || 0)/(products?.limit || 1));
+  const pageSize = 10;
+  
+  const maxPage = Math.ceil((products?.total || 0)/pageSize);
   
   const doSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,8 +38,8 @@ const Page = () => {
       setIsLoadingProduct(true);
       await axios.get(`https://dummyjson.com/products${search ? `/search` : ""}`, {
         params: {
-          limit: 10,
-          skip: (page-1) * 10,
+          limit: pageSize,
+          skip: (page-1) * pageSize,
           q: search,
         }
       }).then((res) => {
@@ -61,7 +48,7 @@ const Page = () => {
           data: [...res.data.products],
           total: res.data.total,
           skip: res.data.skip,
-          limit: res.data.limit,
+          limit: pageSize,
         }));
       });
       setIsLoadingProduct(false);
@@ -92,65 +79,13 @@ const Page = () => {
           </form>
         </section>
         <section id="results" className="flex flex-col gap-5">
-          <TableContainer
-            className="max-h-[400px]"
-            overflowY={"auto"}>
-            <Table
-              variant='striped'
-              size='md'
-            >
-              {/*<TableCaption>Imperial to metric conversion factors</TableCaption>*/}
-              <Thead>
-                <Tr bg={"purple.200"}>
-                  {['Product', 'Brand', 'Price', 'Stock', 'Category'].map((val) => {
-                    return (
-                      <Th key={val} fontSize='md'>
-                        <b>
-                          {val}
-                        </b>
-                      </Th>
-                    );
-                  })}
-                </Tr>
-              </Thead>
-              <Tbody>
-                {products?.data.map((product, index, array) => {
-                  return (
-                    <Tr key={product.id}>
-                      <Td>{product.title}</Td>
-                      <Td>{product.brand}</Td>
-                      <Td>{product.price}</Td>
-                      <Td>{product.stock}</Td>
-                      <Td>{product.category}</Td>
-                    </Tr>
-                  )
-                })}
-              </Tbody>
-              <Tfoot>
-              </Tfoot>
-            </Table>
-          </TableContainer>
-          <div className='p-4 flex gap-4 justify-end items-center'>
-            <Button
-              colorScheme='purple' isLoading={isLoadingProduct} variant='ghost'
-              isDisabled={page <= 1}
-              onClick={() => setPage(prev => prev - 1)}
-            >
-              Prev
-            </Button>
-            <div>
-              {isLoadingProduct ? 'Loading ...' : (
-                <>Page {page} /{maxPage}</>
-              )}
-            </div>
-            <Button
-              colorScheme='purple' isLoading={isLoadingProduct} variant='ghost'
-              isDisabled={page >= maxPage}
-              onClick={() => setPage(prev => prev + 1)}
-            >
-              Next
-            </Button>
-          </div>
+          <ProductsTable
+            isLoading={isLoadingProduct}
+            products={products}
+            page={page}
+            setPage={setPage}
+            maxPage={maxPage}
+          />
         </section>
       </div>
     </MainLayout>

@@ -1,7 +1,8 @@
 "use client";
 
 import MainLayout from "@/components/MainLayout";
-import { FormEvent, FormEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import NextLink from "next/link";
 import axios from "axios";
 import {
   Avatar,
@@ -87,6 +88,29 @@ const Page = () => {
     }
   }
   
+  const Owner = (
+    <Stack minWidth='200px'>
+      {isLoadingCartOwner ? <Progress size='xs' isIndeterminate colorScheme='yellow' bgColor='transparent' /> : (
+        <>
+          <Stack direction='row' alignItems='center'>
+            <p>
+              Owned by:
+            </p>
+            <Avatar
+              border='4px'
+              bgColor='gray.400'
+              src={cartOwner?.image}
+              name={cartOwner?.firstName + cartOwner?.firstName}
+              size='md'
+            />
+            <p>@<b>{cartOwner?.username}</b></p>
+          </Stack>
+          <p>(Click to check details)</p>
+        </>
+      )}
+    </Stack>
+  );
+  
   return (
     <MainLayout>
       <div className='w-[100%] min-h-[100%] flex flex-col gap-2 justify-center'>
@@ -121,30 +145,9 @@ const Page = () => {
                           p={4}
                           rounded='md'
                           onOpen={() => getOwnerByID(cart.userId)}
-                          label={(
-                            <Stack minWidth='200px'>
-                              {isLoadingCartOwner ? <Progress size='xs' isIndeterminate colorScheme='yellow' bgColor='transparent' /> : (
-                                <>
-                                  <Stack direction='row' alignItems='center'>
-                                    <p>
-                                      Owned by:
-                                    </p>
-                                    <Avatar
-                                      border='4px'
-                                      bgColor='gray.400'
-                                      src={cartOwner?.image}
-                                      name={cartOwner?.firstName + cartOwner?.firstName}
-                                      size='md'
-                                    />
-                                    <p>@<b>{cartOwner?.username}</b></p>
-                                  </Stack>
-                                  <p>(Click to check details)</p>
-                                </>
-                              )}
-                            </Stack>
-                          )}
+                          label={Owner}
                         >
-                          <Box p={3} cursor='pointer'>
+                          <Box as={NextLink} p={3} cursor='pointer' href={`/carts/${cart.id}`}>
                             {summaryProducts(cart.products)}
                           </Box>
                         </Tooltip>
