@@ -3,6 +3,7 @@
 import MainLayout from "@/components/MainLayout";
 import { useParams } from "next/navigation";
 import {
+  Avatar,
   Box,
   Card,
   CardBody,
@@ -12,11 +13,12 @@ import {
   Progress,
   Stack,
   StackDivider, Table, Tbody,
-  Text, Thead, Tr
+  Text, Thead, Tooltip, Tr
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CartProductsTable from "@/components/CartProductsTable";
+import { PhoneIcon, TriangleDownIcon } from "@chakra-ui/icons";
 
 const Page = () => {
   
@@ -58,6 +60,7 @@ const Page = () => {
     if (typeof cart?.userId === 'number') fetchOwner();
   }, [cart]);
   
+  console.log({ owner })
   
   return (
     <MainLayout>
@@ -82,9 +85,34 @@ const Page = () => {
                           <Heading size='md'>
                             User
                           </Heading>
-                          <Text pt='2' fontSize='sm'>
-                            {owner?.username}
-                          </Text>
+                          <Tooltip
+                            placement='top-start'
+                            label={(
+                              <Stack p={4}>
+                                <Stack direction='row' alignItems='center'>
+                                  <Avatar
+                                    size='sm'
+                                    border='2px'
+                                    borderColor='gray'
+                                    bgColor='gray'
+                                    src={owner?.image}
+                                  />
+                                  <Box>
+                                    <Text size='sm'>{owner?.firstName} {owner?.lastName}</Text>
+                                    <Text size='sm'>@{owner?.username} | {owner?.email}</Text>
+                                  </Box>
+                                </Stack>
+                                <Stack direction='row'>
+                                  <Text size='md'><PhoneIcon/> {owner?.phone}</Text>
+                                  <Text size='md'><TriangleDownIcon/> {owner?.address?.city}</Text>
+                                </Stack>
+                              </Stack>
+                            )}
+                          >
+                            <Text pt='2' fontSize='sm' cursor='pointer'>
+                              {owner?.username}
+                            </Text>
+                          </Tooltip>
                         </Box>
                         <Box>
                           <Heading size='md'>
@@ -128,7 +156,7 @@ const Page = () => {
           </Heading>
           <Card>
             <CardBody>
-              <CartProductsTable isLoading={isLoadingCart && isLoadingOwner} products={cart.products} />
+              <CartProductsTable isLoading={isLoadingCart && isLoadingOwner} products={cart?.products} />
             </CardBody>
           </Card>
         </section>
