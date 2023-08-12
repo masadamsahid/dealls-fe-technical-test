@@ -41,16 +41,17 @@ const ProductsTable: React.FC<TypeProps> = ({
     <div>
       <TableContainer
         className="max-h-[400px]"
-        overflowY={"auto"}>
+        overflowY={"auto"}
+      >
         <Table
           variant='striped'
-          size='md'
+          size='sm'
         >
           <Thead>
             <Tr bg={"purple.200"}>
               {['Product', 'Brand', 'Price', 'Stock', 'Category'].map((val) => {
                 return (
-                  <Th key={val} fontSize='md'>
+                  <Th key={val} fontSize='sm'>
                     <b>
                       {val}
                     </b>

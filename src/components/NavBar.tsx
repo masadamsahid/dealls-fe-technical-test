@@ -22,7 +22,7 @@ const menus: MenuType[] = [
 
 const NavBar = () => {
   return (
-    <div className="flex flex-col gap-3 p-3 justify-start bg-slate-300/40 shadow-2xl w-[300px] rounded-2xl">
+    <div className="flex flex-col gap-3 p-3 justify-start bg-slate-300/40 shadow-2xl min-w-[300px] rounded-2xl">
       {menus.map(({ name, url }) => (
         <Button
           key={url}

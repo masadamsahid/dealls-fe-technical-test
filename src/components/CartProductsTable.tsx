@@ -28,13 +28,13 @@ const CartProductsTable: React.FC<TypeProps> = ({
         overflowY={"auto"}>
         <Table
           variant='striped'
-          size='md'
+          size='sm'
         >
           <Thead>
             <Tr bg={"purple.200"}>
-              {['Product', 'Qty', 'Price', 'Total', '% Discount', 'Discounted Total Price'].map((val) => {
+              {['Product', 'Qty', 'Price', 'Total', 'Discount', 'Total Discounted'].map((val) => {
                 return (
-                  <Th key={val} fontSize='md'>
+                  <Th key={val} fontSize='sm' textAlign='center'>
                     <b>
                       {val}
                     </b>
@@ -58,11 +58,11 @@ const CartProductsTable: React.FC<TypeProps> = ({
                 return (
                   <Tr key={product.id}>
                     <Td>{product.title}</Td>
-                    <Td>{product.quantity}</Td>
-                    <Td>{product.price}</Td>
-                    <Td>{product.total}</Td>
-                    <Td>{product.discountPercentage}</Td>
-                    <Td>{product.discountedPrice}</Td>
+                    <Td textAlign='center'>{product.quantity}</Td>
+                    <Td textAlign='center'>$ {product.price}</Td>
+                    <Td textAlign='center'>$ {product.total}</Td>
+                    <Td textAlign='center'>{product.discountPercentage}%</Td>
+                    <Td textAlign='center'>$ {product.discountedPrice}</Td>
                   </Tr>
                 )
               })

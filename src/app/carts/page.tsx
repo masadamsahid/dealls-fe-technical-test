@@ -115,18 +115,17 @@ const Page = () => {
     <MainLayout>
       <div className='w-[100%] min-h-[100%] flex flex-col gap-2 justify-center'>
         <section id="results" className="p-4 flex flex-col gap-5">
-          <TableContainer
-            className="max-h-[600px]"
-            overflowY={"auto"}>
+          <TableContainer>
             <Table
               variant='striped'
-              size='md'
+              size='sm'
+              border='2px'
             >
               <Thead>
                 <Tr bg={"purple.200"}>
                   {['CartID', 'Products', 'Tot. Qty', 'Price'].map((val) => {
                     return (
-                      <Td key={val} fontSize='xl' textAlign='center'>
+                      <Td key={val} fontSize='sm' textAlign='center'>
                         <b>
                           {val}
                         </b>
@@ -148,7 +147,9 @@ const Page = () => {
                           label={Owner}
                         >
                           <Box as={NextLink} p={3} cursor='pointer' href={`/carts/${cart.id}`}>
-                            {summaryProducts(cart.products)}
+                            <p>
+                              {summaryProducts(cart.products)}
+                            </p>
                           </Box>
                         </Tooltip>
                       </Td>
@@ -165,10 +166,10 @@ const Page = () => {
                           )}
                         >
                           <Stack alignItems='center'>
-                            <Badge p={1}  colorScheme='whatsapp' fontSize='lg' width='fit-content' variant='subtle'>
+                            <Badge p={1}  colorScheme='whatsapp' fontSize='md' width='fit-content' variant='subtle'>
                               $ {cart.discountedTotal}
                             </Badge>
-                            <Text p={1} color='gray.600' fontSize='sm' width='fit-content'>
+                            <Text p={1} color='gray.600' fontSize='xs' width='fit-content'>
                               <del>$ {cart.total}</del>
                             </Text>
                           </Stack>
@@ -178,8 +179,6 @@ const Page = () => {
                   )
                 })}
               </Tbody>
-              <Tfoot>
-              </Tfoot>
             </Table>
           </TableContainer>
           <div className='p-4 flex gap-4 justify-end items-center'>
