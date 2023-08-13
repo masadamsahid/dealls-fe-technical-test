@@ -22,7 +22,6 @@ const Page = () => {
   
   const doSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ e });
     const target = e.target as typeof e.target & {
       search: { value: string };
     };
@@ -43,7 +42,6 @@ const Page = () => {
           q: search,
         }
       }).then((res) => {
-        console.log({ res })
         setProducts(prevState => ({
           data: [...res.data.products],
           total: res.data.total,
@@ -56,8 +54,6 @@ const Page = () => {
     
     fetchProducts();
   }, [page, search]);
-  
-  console.log({ search, page, products });
   
   return (
     <MainLayout>

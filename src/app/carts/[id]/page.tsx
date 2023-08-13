@@ -60,7 +60,6 @@ const Page = () => {
     if (typeof cart?.userId === 'number') fetchOwner();
   }, [cart]);
   
-  console.log({ owner })
   
   return (
     <MainLayout>

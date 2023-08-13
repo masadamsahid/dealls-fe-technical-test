@@ -44,7 +44,6 @@ const Page = () => {
           skip: (page-1) * 10,
         }
       }).then((res) => {
-        console.log({ res })
         setCarts(prevState => ({
           data: [...res.data.carts],
           total: res.data.total,
@@ -57,8 +56,6 @@ const Page = () => {
     
     fetchProducts();
   }, [page]);
-  
-  console.log({ page, carts });
   
   const summaryProducts = (products: any[]) => {
     
