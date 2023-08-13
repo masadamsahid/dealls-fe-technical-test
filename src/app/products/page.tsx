@@ -74,7 +74,6 @@ const Page = () => {
                 border='1px solid gray'
                 focusBorderColor={'purple.200'}
                 placeholder='Search products (Press Enter)'
-                minWidth='300px'
               />
             </InputGroup>
           </form>
