@@ -13,7 +13,6 @@ import {
   TableContainer,
   Tbody,
   Td, Text,
-  Tfoot,
   Thead, Tooltip,
   Tr
 } from "@chakra-ui/react";

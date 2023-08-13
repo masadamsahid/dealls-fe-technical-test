@@ -64,16 +64,17 @@ const Page = () => {
       <div className='w-[100%] min-h-[100%] flex flex-col gap-2'>
         <section id="search" className="flex justify-end items-center">
           <form onSubmit={doSearch}>
-            <InputGroup colorScheme='purple'>
-              <InputLeftAddon bgColor='purple.300' border={2}>
+            <InputGroup colorScheme='purple' size='sm'>
+              <InputLeftAddon bgColor='purple.300' border={1}>
                 Search
               </InputLeftAddon>
               <Input
                 name="search"
                 borderColor='gray.400'
-                border='2px solid gray'
+                border='1px solid gray'
                 focusBorderColor={'purple.200'}
-                placeholder='Search products'
+                placeholder='Search products (Press Enter)'
+                minWidth='300px'
               />
             </InputGroup>
           </form>
